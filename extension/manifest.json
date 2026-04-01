@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Simple Product Scraper",
+  "version": "1.0",
+  "description": "Scrape product data from page",
+  "permissions": ["activeTab", "scripting"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "host_permissions": ["<all_urls>", "http://localhost:3000/*"]
+}
