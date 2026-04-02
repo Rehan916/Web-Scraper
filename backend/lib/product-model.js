@@ -12,10 +12,37 @@ const productSchema = new mongoose.Schema(
       default: "N/A",
       trim: true
     },
+    imageUrl: {
+      type: String,
+      default: "",
+      trim: true
+    },
+    imageUrls: {
+      type: [String],
+      default: []
+    },
+    category: {
+      type: String,
+      default: "",
+      trim: true
+    },
+    categoryPath: {
+      type: String,
+      default: "",
+      trim: true
+    },
     sourceUrl: {
       type: String,
       required: true,
       trim: true
+    },
+    specifications: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {}
+    },
+    dimensions: {
+      type: mongoose.Schema.Types.Mixed,
+      default: {}
     },
     scrapedAt: {
       type: Date,
