@@ -1,9 +1,23 @@
 const mongoose = require("mongoose");
+const Product = require("./product-model");
 
 let cachedConnectionPromise = null;
+let indexesSyncedPromise = null;
+
+async function ensureIndexes() {
+  if (!indexesSyncedPromise) {
+    indexesSyncedPromise = Product.syncIndexes().catch((error) => {
+      indexesSyncedPromise = null;
+      throw error;
+    });
+  }
+
+  return indexesSyncedPromise;
+}
 
 async function connectToDatabase() {
   if (mongoose.connection.readyState === 1) {
+    await ensureIndexes();
     return mongoose.connection;
   }
 
@@ -18,6 +32,7 @@ async function connectToDatabase() {
   }
 
   await cachedConnectionPromise;
+  await ensureIndexes();
   return mongoose.connection;
 }
 
